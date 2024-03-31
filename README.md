@@ -39,7 +39,7 @@ Optionally, you can add a line for `disable_timeout` to the `config_title.toml` 
 ```
 ui_bgm_id = "ui_bgm_aa05_mvdmin_rollinghills"
 disable_timeout = true
-` ```
+```
 
 
 ## Credits
