@@ -31,8 +31,13 @@ Download the latest version of this plugin and put the `atmosphere` folder on th
 In the `sd:/ultimate` folder, create a file called `config_title.toml` (or the plugin will create one for you if it doesn't exist when the game starts.) Inside the toml file which can be opened in any text editor, write a line with the ui_bgm_id of the bgm you want to play.
 
 #### Example (config_title.toml) - Plays "Classic: Final Results"
-`bgm_hash = 0x209cc21ee3` 
+`ui_bgm_id = "0x209cc21ee3"` 
+
+#### Example 2 (config_title.toml) - Plays "Super Mario: Rolling Hills A"
+`ui_bgm_id = "ui_bgm_aa05_mvdmin_rollinghills"` 
+
 
 ## Credits
 - @jugeeya for advice on inline function hooks in Rust and a good reference in the UltimateTrainingModpack
 - @Coolsonickirby for creating the CSK Collection plugin and functions for developers
+- @ThatNintendoNerd for giving advice on Rust crates and practices
