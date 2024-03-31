@@ -7,13 +7,13 @@ pub const CONFIG_PATH: &str = "sd:/ultimate/config_title.toml";
 
 #[derive(Serialize, Deserialize)]
 pub struct TitleConfig {
-	pub bgm_hash: hash40::Hash40,
+	pub ui_bgm_id: hash40::Hash40,
 }
 
 impl TitleConfig {
 	pub fn new() -> TitleConfig {
 		TitleConfig {
-			bgm_hash: Result::expect(hash40::Hash40::from_label("ui_bgm_crs12_simple_result_final"), 
+			ui_bgm_id: Result::expect(hash40::Hash40::from_label("ui_bgm_crs12_simple_result_final"), 
 									"Could not convert label to Hash40!")
 		}
 	}

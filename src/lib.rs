@@ -23,7 +23,7 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
 			let title_conf = TitleConfig::load_or_create();
 			match title_conf {
 				Ok(c) => {
-					the_csk_collection_api::play_bgm(c.bgm_hash.0);
+					the_csk_collection_api::play_bgm(c.ui_bgm_id.0);
 					IS_PLAYING.store(true, atomic::Ordering::Relaxed);
 				}
 				Err(_e) => {
