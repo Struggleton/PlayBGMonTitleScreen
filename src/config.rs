@@ -10,6 +10,7 @@ pub const CONFIG_PATH: &str = "sd:/ultimate/config_title.toml";
 #[derive(Serialize, Deserialize)]
 pub struct TitleConfig {
     pub ui_bgm_id: Hash40,
+    #[serde(default)]
     pub disable_timeout: AtomicBool
 }
 
