@@ -33,8 +33,13 @@ In the `sd:/ultimate` folder, create a file called `config_title.toml` (or the p
 #### Example (config_title.toml) - Plays "Classic: Final Results"
 `ui_bgm_id = "0x209cc21ee3"` 
 
-#### Example 2 (config_title.toml) - Plays "Super Mario: Rolling Hills A"
-`ui_bgm_id = "ui_bgm_aa05_mvdmin_rollinghills"` 
+Optionally, you can add a line for `disable_timeout` to the `config_title.toml` file to set whether or not the plugin should disable the title screen switching to "How to Play" and other cutscenes:
+
+#### Example 2 (config_title.toml) - Plays "Super Mario: Rolling Hills A" and disables title screen switching
+```
+ui_bgm_id = "ui_bgm_aa05_mvdmin_rollinghills"
+disable_timeout = true
+` ```
 
 
 ## Credits
