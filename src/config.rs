@@ -1,4 +1,5 @@
 use anyhow::Result;
+use hash40::Hash40;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io;
@@ -7,16 +8,13 @@ pub const CONFIG_PATH: &str = "sd:/ultimate/config_title.toml";
 
 #[derive(Serialize, Deserialize)]
 pub struct TitleConfig {
-    pub ui_bgm_id: hash40::Hash40,
+    pub ui_bgm_id: Hash40,
 }
 
 impl TitleConfig {
     pub fn new() -> TitleConfig {
         TitleConfig {
-            ui_bgm_id: Result::expect(
-                hash40::Hash40::from_label("ui_bgm_crs12_simple_result_final"),
-                "Could not convert label to Hash40!",
-            ),
+            ui_bgm_id: Hash40::new("ui_bgm_crs12_simple_result_final"),
         }
     }
 

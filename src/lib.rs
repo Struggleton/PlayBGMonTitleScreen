@@ -2,6 +2,7 @@ use std::sync::atomic::{self, AtomicBool};
 
 use skyline::hooks::InlineCtx;
 use skyline::{hook, install_hooks};
+use hash40::Hash40;
 
 pub mod config;
 pub use config::*;
@@ -38,10 +39,8 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
 #[hook(offset = offsets::HOW_TO_PLAY_OFFSET, inline)]
 fn create_how_to_hook(ctx: &mut InlineCtx) {
     IS_PLAYING.store(false, atomic::Ordering::Relaxed);
-    let bgm_hash = Result::expect(
-        hash40::Hash40::from_label("m21b_gaw_gamer_mom"),
-        "Could not convert label to Hash40!",
-    );
+
+    let bgm_hash = Hash40::new("m21b_gaw_gamer_mom");
     the_csk_collection_api::play_bgm(bgm_hash.0);
 }
 
