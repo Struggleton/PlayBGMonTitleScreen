@@ -4,12 +4,25 @@ use skyline::hooks::InlineCtx;
 use skyline::{hook, install_hooks};
 use hash40::Hash40;
 
+use once_cell::sync::Lazy;
+
 pub mod config;
 pub use config::*;
 pub mod offsets;
 pub use offsets::*;
 
 static IS_PLAYING: AtomicBool = AtomicBool::new(false);
+static TITLE_CONFIG: Lazy<TitleConfig> = Lazy::new(|| {
+    let title_conf = TitleConfig::load_or_create();
+        match title_conf {
+            Ok(c) => {
+                c
+            }
+            Err(_e) => {
+                TitleConfig::new()
+            }
+        }
+});
 
 // We are using a hook to a function for if the
 // game is in the title screen's "Press any button state."
@@ -19,18 +32,9 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
     // we use the IS_PLAYING boolean to check if we're already
     // Playing the bgm
     if !(IS_PLAYING.load(atomic::Ordering::Relaxed)) {
-        // Load the TitleConfig file and get the hash we're
-        // supposed to play
-        let title_conf = TitleConfig::load_or_create();
-        match title_conf {
-            Ok(c) => {
-                the_csk_collection_api::play_bgm(c.ui_bgm_id.0);
-                IS_PLAYING.store(true, atomic::Ordering::Relaxed);
-            }
-            Err(_e) => {
-                // TO-DO find out how to raise error
-            }
-        }
+        // Play the bgm in the config file
+        the_csk_collection_api::play_bgm(TITLE_CONFIG.ui_bgm_id.0);
+        IS_PLAYING.store(true, atomic::Ordering::Relaxed);
     }
 }
 
@@ -57,11 +61,14 @@ fn create_exit_hook(ctx: &mut InlineCtx) {
 // and modify the register for the title screen time out value
 #[hook(offset = offsets::TITLE_SCREEN_INIT_OFFSET, inline)]
 fn create_title_init_hook(ctx: &mut InlineCtx) {
-    unsafe {
-        // This is the max value that can be used as the title screen
-        // time out value. This is essentially ~13 months worth of time,
-        // so functionally infinite
-        *ctx.registers[10].w.as_mut() = i32::MAX as u32;
+    if (TITLE_CONFIG.disable_timeout.load(atomic::Ordering::Relaxed))
+    {
+        unsafe {
+            // This is the max value that can be used as the title screen
+            // time out value. This is essentially ~13 months worth of time,
+            // so functionally infinite
+            *ctx.registers[10].w.as_mut() = i32::MAX as u32;
+        }
     }
 }
 

@@ -3,18 +3,21 @@ use hash40::Hash40;
 use serde::{Deserialize, Serialize};
 use std::fs;
 use std::io;
+use std::sync::atomic::AtomicBool;
 
 pub const CONFIG_PATH: &str = "sd:/ultimate/config_title.toml";
 
 #[derive(Serialize, Deserialize)]
 pub struct TitleConfig {
     pub ui_bgm_id: Hash40,
+    pub disable_timeout: AtomicBool
 }
 
 impl TitleConfig {
     pub fn new() -> TitleConfig {
         TitleConfig {
             ui_bgm_id: Hash40::new("ui_bgm_crs12_simple_result_final"),
+            disable_timeout: AtomicBool::new(false),
         }
     }
 
