@@ -25,7 +25,7 @@ A rust plugin for Smash Ultimate to play music on the title screen
 - [CSK Collection plugin](https://gamebanana.com/mods/499008 "The CSK Collection API")
 
 ## Setup
-Download the latest version of this plugin and the CSK Collection plugin and place them under the `sd:/atmosphere/contents/01006A800016E000/romfs/skyline/plugins` directory. 
+Download the latest version of this plugin and put the `atmosphere` folder on the root of the SD card. Make sure the CSK Collection plugin is also installed in the `sd:/atmosphere/contents/01006A800016E000/romfs/skyline/plugins` directory. 
 
 ## Usage
 In the `sd:/ultimate` folder, create a file called `config_title.toml` (or the plugin will create one for you if it doesn't exist when the game starts.) Inside the toml file which can be opened in any text editor, write a line with the ui_bgm_id of the bgm you want to play.
@@ -34,5 +34,5 @@ In the `sd:/ultimate` folder, create a file called `config_title.toml` (or the p
 `bgm_hash = 0x209cc21ee3` 
 
 ## Credits
-- @jugeeya for advice on inline function hooks in Rust
+- @jugeeya for advice on inline function hooks in Rust and a good reference in the UltimateTrainingModpack
 - @Coolsonickirby for creating the CSK Collection plugin and functions for developers
