@@ -53,7 +53,19 @@ fn create_exit_hook(ctx: &mut InlineCtx) {
     IS_PLAYING.store(false, atomic::Ordering::Relaxed);
 }
 
+// Hook into the title screen initialization function
+// and modify the register for the title screen time out value
+#[hook(offset = offsets::TITLE_SCREEN_ASSIGN_OFFSET, inline)]
+fn create_title_init_hook(ctx: &mut InlineCtx) {
+    unsafe {
+        // This is the max value that can be used as the title screen
+        // time out value. This is essentially ~13 months worth of time,
+        // so functionally infinite
+        *ctx.registers[10].w.as_mut() = i32::MAX as u32;
+    }
+}
+
 #[skyline::main(name = "PlayBGMonTitleScreen")]
 pub fn main() {
-    install_hooks!(create_press_any_hook, create_exit_hook, create_how_to_hook,);
+    install_hooks!(create_press_any_hook, create_exit_hook, create_how_to_hook, create_title_init_hook);
 }
