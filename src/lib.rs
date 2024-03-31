@@ -1,15 +1,17 @@
 use skyline::{hook, install_hooks};
 use skyline::hooks::InlineCtx;
-pub mod config;
-pub use config::*;
 use the_csk_collection_api;
 
+pub mod config;
+pub use config::*;
+pub mod offsets;
+pub use offsets::*;
 
 static mut IS_PLAYING: bool = false;
 
 // We are using a hook to a function for if the
 // game is in the title screen's "Press any button state." 
-#[hook(offset = 0x1bfaf50, inline)]
+#[hook(offset = offsets::PRESS_ANY_BUTTON_OFFSET, inline)]
 fn create_press_any_hook(ctx: &mut InlineCtx) {
 	unsafe {
 		// This function gets called multiple times, so
@@ -34,7 +36,7 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
 
 // Hook for the "How to Play" state
 // We need to mute the audio, so play silent audio
-#[hook(offset = 0x1bfac90, inline)]
+#[hook(offset = offsets::HOW_TO_PLAY_OFFSET, inline)]
 fn create_how_to_hook(ctx: &mut InlineCtx) {
 	unsafe {
 		IS_PLAYING = false;
@@ -44,7 +46,7 @@ fn create_how_to_hook(ctx: &mut InlineCtx) {
 
 // Hook for leaving the title screen
 // Change the IS_PLAYING boolean
-#[hook(offset = 0x1bfb290, inline)]
+#[hook(offset = offsets::TITLE_SCREEN_EXIT_OFFSET, inline)]
 fn create_exit_hook(ctx: &mut InlineCtx) {
 	// so that when we go back to the title screen
 	// it will start playing again.
