@@ -23,7 +23,7 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
 			let title_conf = TitleConfig::load_or_create();
 			match title_conf {
 				Ok(c) => {
-					the_csk_collection_api::play_bgm(c.bgm_hash);
+					the_csk_collection_api::play_bgm(c.bgm_hash.0);
 					IS_PLAYING.store(true, atomic::Ordering::Relaxed);
 				}
 				Err(_e) => {
@@ -39,7 +39,9 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
 fn create_how_to_hook(ctx: &mut InlineCtx) {
 	
 		IS_PLAYING.store(false, atomic::Ordering::Relaxed);
-		the_csk_collection_api::play_bgm(0x12129dab28); 
+		let bgm_hash = Result::expect(hash40::Hash40::from_label("m21b_gaw_gamer_mom"), 
+												"Could not convert label to Hash40!");
+		the_csk_collection_api::play_bgm(bgm_hash.0); 
 	
 }
 
