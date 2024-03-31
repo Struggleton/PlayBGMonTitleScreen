@@ -1,6 +1,5 @@
 use skyline::{hook, install_hooks};
 use skyline::hooks::InlineCtx;
-use the_csk_collection_api;
 
 pub mod config;
 pub use config::*;
