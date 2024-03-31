@@ -55,7 +55,7 @@ fn create_exit_hook(ctx: &mut InlineCtx) {
 
 // Hook into the title screen initialization function
 // and modify the register for the title screen time out value
-#[hook(offset = offsets::TITLE_SCREEN_ASSIGN_OFFSET, inline)]
+#[hook(offset = offsets::TITLE_SCREEN_INIT_OFFSET, inline)]
 fn create_title_init_hook(ctx: &mut InlineCtx) {
     unsafe {
         // This is the max value that can be used as the title screen
