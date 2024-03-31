@@ -40,7 +40,7 @@ fn create_press_any_hook(ctx: &mut InlineCtx) {
 fn create_how_to_hook(ctx: &mut InlineCtx) {
     IS_PLAYING.store(false, atomic::Ordering::Relaxed);
 
-    let bgm_hash = Hash40::new("m21b_gaw_gamer_mom");
+    let bgm_hash = Hash40::new("ui_bgm_crs2_49_commonsilent_lp");
     the_csk_collection_api::play_bgm(bgm_hash.0);
 }
 
